@@ -13,7 +13,7 @@ export class ReservationFormComponent {
 
   onSubmit(){
     if(this.reservationForm.valid){
-      console.log("valid");
+      console.log("valid ");
       
     }
   }
