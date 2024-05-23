@@ -8,7 +8,7 @@ export class ReservationService {
 
   private reservations: Reservation[] = [];
 
-  //CRUD
+  //CRUD operations
 
   getReservations(): Reservation[] {
     return this.reservations;
