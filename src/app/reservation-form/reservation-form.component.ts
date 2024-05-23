@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReservationService } from '../reservation/reservation.service';
+import { Reservation } from '../models/reservations';
 
 @Component({
   selector: 'app-reservation-form',
@@ -10,7 +12,8 @@ export class ReservationFormComponent {
 
   reservationForm: FormGroup = new FormGroup({ });
 
-  constructor(private formBuilder: FormBuilder ){
+  constructor(private formBuilder: FormBuilder,
+     private reservationService: ReservationService ){
 
   }
 
@@ -26,8 +29,8 @@ export class ReservationFormComponent {
 
   onSubmit(){
     if(this.reservationForm.valid){
-      console.log("valid");
-      
+      let reservation: Reservation =  this.reservationForm.value;
+      this.reservationService.addReservation(reservation);
     }
   }
 
