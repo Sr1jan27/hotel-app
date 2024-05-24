@@ -8,10 +8,17 @@ export class ReservationService {
 
   private reservations: Reservation[] = [];
 
+  // constructor gets loaded before ngOnit lifeCycle hook, To handle al the instances of the variables created 
+  constructor() {
+    let savedReservations = localStorage.getItem("reservations");
+    this.reservations = savedReservations? JSON.parse(savedReservations): [];
+  }
+
   //CRUD operations
 
   getReservations(): Reservation[] {
     return this.reservations;
+    localStorage
   }
 
   getReservation(id: string): Reservation | undefined {
@@ -19,21 +26,20 @@ export class ReservationService {
   }
 
   addReservation(reservation: Reservation): void  {
+    reservation.id = Date.now().toString();
     this.reservations.push(reservation);
-    console.log(this.reservations); 
+    localStorage.setItem("reservations", JSON.stringify(this.reservations));
   }
 
   deleteReservation(id: string): void{
     let index = this.reservations.findIndex(res => res.id === id);
     this.reservations.splice(index, 1); 
+    localStorage.setItem("reservations", JSON.stringify(this.reservations));
   }
 
-  updateReservation(updatedReservation: Reservation): void {
+  updateReservation(id: string, updatedReservation: Reservation): void {
     let index = this.reservations.findIndex(res => res.id === updatedReservation.id);
     this.reservations[index] = updatedReservation;
-    
-
+    localStorage.setItem("reservations", JSON.stringify(this.reservations));
   }
-
-  constructor() { }
 }
